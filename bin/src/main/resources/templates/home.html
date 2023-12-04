@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Welcome to Esports</title>
+	<link rel="stylesheet" href="risorse/css/games.css">
+	<script src="risorse/js/games.js"></script>
+</head>
+
+<body onload="init()">
+	<!--
+		<li><a href="/game/?idGames=League of Legend">League of Legend</a></li>
+		<li><a href="/game/?idGames=Rainbow Six Siege">Rainbow Six Siege</a></li>
+		-->
+
+
+
+	<h1>Welcome to Esports</h1>
+	<hr>
+	<button id="btn-new-game">Nuovo Game</button>
+	<ul id="game-list">
+		<li th:each="entry:${listaGames}">
+			<p th:text="${entry.value.toString}"></p>
+
+			<a th:href="'/team/?idGames=' + ${entry.key}">
+				<button>Dettaglio</button>
+			</a>
+
+			<form action="/delGame" method="post" onsubmit="if(!confirm('Vuoi davvero eliminare ?')){return false;}">
+				<input type="hidden" name="id" th:value="${entry.key}">
+				<button>Elimina</button>
+			</form>
+
+
+		</li>
+	</ul>
+
+	<!-- Modal per inserire un nuovo gioco -->
+	<div id="modal-new-game" class="modal-back">
+		<div class="modal-content">
+			<!-- Pulsante per chiudere il modal -->
+			<span id="close-modal-new" class="close">X</span>
+			<form action="/newGame" method="post">
+				<!-- Campo per inserire il titolo del nuovo gioco -->
+				<input type="text" id="titoloGame" name="titolo" placeholder="Inserisci un nuovo GIOCO" required><br>
+				<!-- Pulsante per confermare l'inserimento -->
+				<button type="submit">Inserisci Nuovo Game</button>
+				<!-- Pulsante per cancellare il contenuto del form -->
+				<button onclick="pulisciNewGame()">Pulisci</button>
+			</form>
+		</div>
+	</div>
+
+	<hr>
+
+</body>
+
+</html>
