@@ -23,7 +23,9 @@
 		<li th:each="entry:${listaGames}">
 			<p th:text="${entry.value.toString}"></p>
 
-			<a th:href="'/team/?idGames=' + ${entry.key}">
+			
+
+			<a th:href="|/team/?idGames=${entry.value.titolo}|">
 				<button>Dettaglio</button>
 			</a>
 
